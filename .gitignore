@@ -1,4 +1,4 @@
-test
+/test
 
 ### node
 # Logs
@@ -66,4 +66,4 @@ Temporary Items
 
 
 ### IDEA
-.idea
+/.idea
