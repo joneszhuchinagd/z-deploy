@@ -1,6 +1,4 @@
-test
-
-### node
+# node ignore
 # Logs
 logs
 *.log
@@ -37,7 +35,7 @@ node_modules
 
 
 
-### OSX
+# OSX ignore
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -65,5 +63,5 @@ Temporary Items
 .apdisk
 
 
-### IDEA
+# IDEA ignore
 .idea
