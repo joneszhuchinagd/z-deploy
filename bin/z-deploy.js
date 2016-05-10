@@ -2,19 +2,13 @@
 
 "use strict";
 const LIBS = '../libs/';
-// require('gulp/bin/gulp');
 var console = require(LIBS + 'color_console');
 var init = require(LIBS + 'init');
 var Promise = require('bluebird');
 var argv = require('minimist')(process.argv.slice(2));
+var path = require('path');
 
 var command = argv['_'][0];
-
-//缺少命令
-if (!command) {
-    console.error("错误: 必须输入一个命令 如(init,build,publish)");
-    return;
-}
 
 switch (command) {
     case 'init':
@@ -26,6 +20,13 @@ switch (command) {
                 console.error(err);
             })
         break;
-
+    default :
+        process.argv.push(
+            '--cwd',
+            path.resolve(__dirname, '../')
+        );
+        require('gulp/bin/gulp');
+        break;
 }
+
 
