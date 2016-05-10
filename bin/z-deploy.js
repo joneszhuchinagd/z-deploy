@@ -2,6 +2,7 @@
 
 "use strict";
 const LIBS = '../libs/';
+// require('gulp/bin/gulp');
 var console = require(LIBS + 'color_console');
 var init = require(LIBS + 'init');
 var Promise = require('bluebird');
@@ -17,7 +18,7 @@ if (!command) {
 
 switch (command) {
     case 'init':
-        init.create_deploy_dir()
+        init.create_deploy_dir(argv)
             .then(()=> {
                 console.info('成功生成开发目录!');
             })
