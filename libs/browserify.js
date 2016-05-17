@@ -4,8 +4,7 @@
 var watchify = require('watchify');
 var gulp = require('gulp');
 var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
+var source_buffer = require('vinyl-source-buffer');
 var browser_sync = require('browser-sync');
 var path = require('path');
 var global = require('./global');
@@ -25,8 +24,7 @@ function build() {
                 console.error(err);
                 reject(err);
             })
-            .pipe(source('bundle.js'))
-            .pipe(buffer())
+            .pipe(source_buffer('bundle.js'))
             .pipe(gulp.dest(path.join(global.DEBUG_DIR, 'js')))
             .on('end', ()=> {
                 resolve();
@@ -42,6 +40,7 @@ function build_libs() {
             .pipe(gulp.dest(global.DEBUG_DIR))
             .on('end', ()=> {
                 resolve();
+                browser_sync.get("bsync").reload();
             })
     })
 }
@@ -53,8 +52,7 @@ function publish() {
                 console.error(err);
                 reject(err);
             })
-            .pipe(source('bundle.js'))
-            .pipe(buffer())
+            .pipe(source_buffer('bundle.js'))
             .pipe(md5(5, path.join(global.RELEASE_DIR, "*.html")))
             //.pipe(sourcemaps.init({loadMaps: true}))
             .pipe(uglify())
@@ -93,9 +91,7 @@ exports.init = function () {
 
 
 exports.watch = function () {
-    b.plugin(watchify, {
-        poll: true
-    });
+    b.plugin(watchify);
     b.on('update', build);
 
     gulp.watch(path.join(global.PWD, 'js/libs/**/*.js'), build_libs);

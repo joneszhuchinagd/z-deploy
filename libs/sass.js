@@ -16,11 +16,12 @@ var md5 = require("gulp-md5-plus");
 exports.watch = function () {
     return new Promise((resolve, reject)=> {
         gulp.watch([path.join(global.PWD, 'css/*.scss'), path.join(global.PWD, 'css/libs/*.scss')], build);
-        resolve();
+        return build();
     })
 }
 
-exports.build = function () {
+
+function build() {
     return new Promise((resolve, reject)=> {
         gulp.src(global.SASS_ENTRY, {base: global.PWD})
             .pipe(sass())
@@ -31,7 +32,6 @@ exports.build = function () {
             .pipe(gulp.dest(global.DEBUG_DIR))
             .on('end', ()=> {
                 browser_sync.get("bsync").reload();
-                console.info("build css success!");
                 resolve();
             })
     });
@@ -51,8 +51,10 @@ exports.publish = function () {
             .pipe(md5(5, path.join(global.RELEASE_DIR, '*.html')))
             .pipe(gulp.dest(global.RELEASE_DIR))
             .on('end', ()=> {
-                console.info("publish css success!");
+                console.info("publish css success");
                 resolve();
             })
     })
 }
+
+exports.build = build;

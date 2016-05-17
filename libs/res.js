@@ -9,17 +9,31 @@ var browser_sync = require('browser-sync');
 var path = require('path');
 var global = require('./global');
 var Promise = require('bluebird');
+var md5 = require("gulp-md5-plus");
+var console = require('./color_console');
 
 
-/**
- * 监听img,audio等静态资源
- * @param config
- */
-exports.watch = function (config) {
+exports.watch = function () {
     return new Promise((resolve, reject)=> {
         gulp.watch(path.join(global.PWD, 'resources/**/*'), ()=> {
             browser_sync.get("bsync").reload();
         });
         resolve();
+    })
+}
+
+exports.publish = function () {
+    return new Promise(function (resolve, reject) {
+        gulp.src(path.join(global.PWD, 'resources/**/*'), {base: global.PWD})
+            .pipe(md5(5, [
+                path.join(global.RELEASE_DIR, '*.html'),
+                path.join(global.RELEASE_DIR, 'js/*.js'),
+                path.join(global.RELEASE_DIR, 'css/*.css'),
+            ]))
+            .pipe(gulp.dest(global.RELEASE_DIR))
+            .on('end', ()=> {
+                resolve();
+                console.info("publish res success");
+            })
     })
 }
