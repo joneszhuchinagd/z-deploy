@@ -1,0 +1,14 @@
+{
+  "sass": {
+    "debug": false,
+    "entry": "./css/main.scss"
+  },
+  "browserify": {
+    "debug": false,
+    "entry": "./js/main.js"
+  },
+  "res": {
+  },
+  "html": {
+  }
+}

@@ -43,10 +43,12 @@ class Fs_ext extends EventEmitter {
     /**
      * 递归删除目录内容
      * @param path_name
-     * @param remove_base
-     * @param filters
+     * @param opts {remove_base:true,filters:[]}
      */
-    static rmrfSync(path_name, {remove_base=true, filters=[]}={}) {
+    static rmrfSync(path_name, opts) {
+        var remove_base = opts.remove_base == undefined ? true : opts.remove_base;
+        var filters = opts.filters == undefined ? [] : opts.filters;
+
         var res = this.walkSync(path_name);
         var directory_arr = res.directory;
         var file_arr = res.file;
@@ -65,10 +67,11 @@ class Fs_ext extends EventEmitter {
      * 递归复制目录
      * @param from
      * @param to
-     * @param overwrite 是否覆盖已有文件
-     * @param filters 过滤某些文件的复制
+     * @param opts {overwrite:false,filters:[]}
      */
-    static cprfSync(from, to, {overwrite=false, filters=[]}={}) {
+    static cprfSync(from, to, opts) {
+        var overwrite = opts.overwrite == undefined ? false : opts.overwrite;
+        var filters = opts.filters == undefined ? [] : opts.filters;
         var flag = overwrite ? 'w' : 'wx';
 
         var regexp_arr = [];
@@ -120,7 +123,7 @@ class Fs_ext extends EventEmitter {
      * @param filters
      * @returns {Array}
      */
-    static filter(sources = [], filters = []) {
+    static filter(sources, filters) {
         var res = [];
         for (var source of sources) {
             for (var filter of filters) {
