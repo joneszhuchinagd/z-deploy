@@ -13,6 +13,7 @@ var Promise = require('bluebird');
 var console = require('./color_console');
 var md5 = require("gulp-md5-plus");
 var uglify = require('gulp-uglify');
+var babelify = require('babelify');
 
 
 var b = null;
@@ -85,7 +86,7 @@ exports.init = function () {
         entries: [global.JS_ENTRY],
         cache: {},
         packageCache: {}
-    }).transform("babelify", {presets: ["es2015"]});
+    }).transform(babelify, {presets: [path.join(process.cwd(), 'node_modules/babel-preset-es2015')]});
 
 }
 

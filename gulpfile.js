@@ -34,7 +34,7 @@ gulp.task('default', ()=> {
 });
 
 gulp.task('publish', ()=> {
-    return del([path.join(global.PWD, 'release/**/*')])
+    return del([path.join(global.PWD, 'release/**/*')], {force: true})
         .then(()=> {
             return html.publish();
         })
