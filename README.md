@@ -6,7 +6,7 @@
 ## 安装
 
 ```
-npm install -g z-deploy
+sudo npm install -g z-deploy
 ```
 
 ## 基本命令
