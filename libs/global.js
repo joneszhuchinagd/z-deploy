@@ -4,7 +4,7 @@
 
 var path = require('path');
 
-const PWD = process.env.PWD;
+var PWD = process.env.PWD || process.env.INIT_CWD;
 
 module.exports = {
     PWD: PWD,

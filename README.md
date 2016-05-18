@@ -14,7 +14,7 @@
 ## 安装
 
 ```
-sudo npm install -g z-deploy
+[sudo] npm install -g z-deploy
 ```
 
 ## 基本命令
@@ -23,12 +23,12 @@ sudo npm install -g z-deploy
 初始化开发目录，自动创建目录结构。
 
 ```
-z-deploy init [--overwrite][-o]
+[sodu] z-deploy init [--overwrite][-o]
 ```
-#####options:
+##### options:
 * --overwrite or -o 覆盖当前工作目录下可能重名的文件以及目录
 
-#####folders：
+##### folders:
 
 ```
 -assets //存放psd、doc等文件
@@ -57,7 +57,7 @@ index.html
 监听文件的修改，自动编译SASS、BABEL，自动刷新浏览器等。
 
 ```
-z-deploy 
+[sodu] z-deploy
 ```
 
 
@@ -65,11 +65,12 @@ z-deploy
 发布项目文件，打包压缩js、css等资源，修改引用路径，增加版本号等。
 
 ```
-z-deploy publish
+[sodu] z-deploy publish
 ```
 
 
-##warn
+## warn
 * js/libs下的js文件引入支持require以及script.
+* 如果运行出现permission denied错误,请加上sudo.
 
 
