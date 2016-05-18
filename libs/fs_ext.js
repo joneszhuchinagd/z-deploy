@@ -70,6 +70,9 @@ class Fs_ext extends EventEmitter {
      * @param opts {overwrite:false,filters:[]}
      */
     static cprfSync(from, to, opts) {
+
+        var old_mask = process.umask();
+        process.umask(0);
         var overwrite = opts.overwrite == undefined ? false : opts.overwrite;
         var filters = opts.filters == undefined ? [] : opts.filters;
         var flag = overwrite ? 'w' : 'wx';
@@ -89,7 +92,7 @@ class Fs_ext extends EventEmitter {
             if (stats.isDirectory()) {
                 let dist_path = path.join(to, dir.path_name.substr(from_length));
                 try {
-                    fs.mkdirSync(dist_path);
+                    fs.mkdirSync(dist_path, 0o755);
                 }
                 catch (err) {
                     if (err.code == 'EEXIST') {
@@ -103,7 +106,7 @@ class Fs_ext extends EventEmitter {
             let dist_path = path.join(to, file.path_name.substr(from_length));
             let contents = fs.readFileSync(file.path_name);
             try {
-                fs.writeFileSync(dist_path, contents, {flag: flag});
+                fs.writeFileSync(dist_path, contents, {flag: flag, mode: 0o777});
             }
             catch (err) {
                 if (err.code == 'EEXIST') {
@@ -112,8 +115,8 @@ class Fs_ext extends EventEmitter {
                     throw err;
                 }
             }
-
         }
+        process.umask(old_mask);
     }
 
 
