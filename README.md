@@ -1,7 +1,15 @@
 # z-deploy
 >单页应用自动化构建框架
 
+
 ***
+
+##why z-deploy
+* 集成browserify+watchify+babelify开发环境，支持最新es2015语法，支持require node/npm模块.
+* 集成browser-sync，支持多终端同时监听，自动刷新页面
+* 支持sass
+* 支持全文件自动添加md5版本号
+* 自动修改资源引用的相对路径
 
 ## 安装
 
@@ -17,7 +25,7 @@ sudo npm install -g z-deploy
 ```
 z-deploy init [--overwrite][-o]
 ```
-#####options
+#####options:
 * --overwrite or -o 覆盖当前工作目录下可能重名的文件以及目录
 
 #####folders：
@@ -54,13 +62,14 @@ z-deploy
 
 
 ### publish
-发布项目文件，自动打包压缩js、css等资源，修改引用路径，增加版本号等。
+发布项目文件，打包压缩js、css等资源，修改引用路径，增加版本号等。
 
 ```
 z-deploy publish
 ```
 
 
-
+##warn
+* js/libs下的js文件引入支持require以及script.
 
 
