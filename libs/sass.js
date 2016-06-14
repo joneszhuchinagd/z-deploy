@@ -15,7 +15,7 @@ var md5 = require("gulp-md5-plus");
 
 exports.watch = function () {
     return new Promise((resolve, reject)=> {
-        gulp.watch([path.join(global.PWD, 'css/*.scss'), path.join(global.PWD, 'css/libs/*.scss')], build);
+        gulp.watch([path.join(global.PWD, 'css/**/*.scss'), path.join(global.PWD, 'css/libs/**/*.scss')], build);
         return build();
     })
 }
